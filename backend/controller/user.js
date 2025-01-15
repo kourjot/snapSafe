@@ -7,6 +7,9 @@ const key=process.env.Key
 
 const signup=async(req,res)=>{
     const {username,email,password}=req.body
+    if(!username || !email || !password){
+        return res.status(404).json({message:"all fields are required"})
+    }
     const hash=await argon2.hash(password)
     try{
     const user=new User({
@@ -30,7 +33,7 @@ const login =async(req,res)=>{
     const vaild=await argon2.verify(user.password,password)
     if(vaild){
         const token=jwt.sign({name:user.username,email:user.email},key,{
-            expiresIn:"1d"
+            expiresIn:"1 day"
         })
         return res.status(200).json({msg:"user login ",token:token})
     }
