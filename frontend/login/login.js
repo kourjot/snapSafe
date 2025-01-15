@@ -22,11 +22,11 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
     const password = document.getElementById("password").value;
     
     // API endpoint (replace this with your actual API endpoint)
-    const apiEndpoint = "https://your-api-endpoint.com/login";
+    const apiEndpoint = "http://localhost:2999/login";
     
     // Prepare request payload
     const requestPayload = {
-        username: username,
+        email: username,
         password: password
     };
 
@@ -43,8 +43,12 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
         
         // If the response is successful (e.g., status code 200)
         if (response.ok) {
-            // Handle successful login (e.g., redirect to another page)
-            window.location.href = "dashboard.html";  // Redirect to a new page (replace with your URL)
+            // Store token in localStorage
+            localStorage.setItem("authToken", data.token); // Assuming the response contains the token as 'data.token'
+            
+            // Redirect to a protected page (replace with your URL)
+            window.location.href = "nav.html";
+;
         } else {
             // Display error message from API (if any)
             showError(data.message || "An error occurred, please try again.");

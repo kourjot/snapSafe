@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navbar with Image Upload</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .hidden { display: none; }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Navbar -->
+    <nav class="bg-gray-800 p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#" class="text-white text-lg font-bold flex items-center">
+                <img src="../img/snapsafelogo.jpg" class="w-16 h-16 rounded-full object-cover mr-4">
+            </a>
+
+            <!-- Profile Dropdown -->
+            <div class="relative">
+                <button id="profileButton" class="flex items-center text-white focus:outline-none">
+                    <img src="../img/profile.png" alt="Profile Image" class="w-16 h-16 rounded-full mr-2">
+                </button>
+                <div id="dropdownMenu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1">
+                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onclick="logout()">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Upload Section -->
+    <div class="container mx-auto p-6">
+        <!-- Upload Button -->
+        <div class="flex justify-start mb-4">
+            <input type="file" id="fileInput" class="hidden" onchange="uploadImage(event)">
+            <label for="fileInput" class="px-4 py-2 bg-blue-500 text-white rounded-md cursor-pointer">
+                Upload Image
+            </label>
+        </div>
+
+        <!-- Uploaded Images Grid -->
+        <div id="imageGrid" class="grid grid-cols-4 gap-4 mt-4">
+            <!-- Uploaded images will be shown here -->
+        </div>
+    </div>
+
+    <script>
+        // Check if the user is logged in
+        function checkAuth() {
+            const token = localStorage.getItem("authToken");
+            if (!token) {
+                // Redirect to login page if not authenticated
+                window.location.href = "login.html";
+            }
+        }
+
+        // Call checkAuth on page load to ensure the user is authenticated
+        window.onload = checkAuth;
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem("authToken"); // Remove token from localStorage
+            window.location.href = "login.html"; // Redirect to login page
+        }
+
+        // Function to upload image to backend
+        async function uploadImage(event) {
+            const file = event.target.files[0];
+            const formData = new FormData();
+            formData.append('image', file);
+
+            const token = localStorage.getItem("authToken"); // Get token from localStorage
+
+            try {
+                // Send POST request to backend API with token
+                const response = await fetch('http://localhost:3000/upload', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`, // Attach token to the header
+                    },
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Successfully uploaded the image, show it in the grid
+                    displayImage(data.file.path);
+                } else {
+                    alert('Failed to upload image');
+                }
+            } catch (error) {
+                console.error('Error uploading image:', error);
+            }
+        }
+
+        // Function to display uploaded image in the grid
+        function displayImage(imagePath) {
+            const imageGrid = document.getElementById('imageGrid');
+
+            const imageDiv = document.createElement('div');
+            imageDiv.classList.add('relative');
+
+            const img = document.createElement('img');
+            img.src = `http://localhost:3000/${imagePath}`; // Display image from the server
+            img.alt = 'Uploaded Image';
+            img.classList.add('w-full', 'h-auto', 'rounded-md', 'shadow-md');
+
+            imageDiv.appendChild(img);
+            imageGrid.appendChild(imageDiv);
+        }
+
+        // Function to fetch all uploaded images
+        async function fetchAllImages() {
+            const token = localStorage.getItem("authToken"); // Get token from localStorage
+
+            try {
+                const response = await fetch('http://localhost:3000/images', {
+                    headers: {
+                        'Authorization': `Bearer ${token}` // Attach token to the header
+                    }
+                });
+                const imagePaths = await response.json();
+
+                if (response.ok) {
+                    // Display all images in the grid
+                    imagePaths.forEach(imagePath => {
+                        displayImage(imagePath);
+                    });
+                } else {
+                    console.log('Failed to fetch images');
+                }
+            } catch (error) {
+                console.error('Error fetching images:', error);
+            }
+        }
+
+        // Fetch all images when the page loads
+        window.onload = function() {
+            checkAuth(); // Ensure user is authenticated
+            fetchAllImages(); // Fetch images after authentication check
+        };
+
+        // Toggle Profile Dropdown
+        document.getElementById('profileButton').addEventListener('click', function() {
+            var dropdownMenu = document.getElementById('dropdownMenu');
+            dropdownMenu.classList.toggle('hidden');
+        });
+    </script>
+
+</body>
+</html>
