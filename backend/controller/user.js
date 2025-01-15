@@ -2,6 +2,7 @@ import {User} from "../model/user.js"
 import argon2 from "argon2"
 import jwt  from "jsonwebtoken"
 import "dotenv/config"
+
 const key=process.env.Key
 
 const signup=async(req,res)=>{
@@ -14,21 +15,21 @@ const signup=async(req,res)=>{
         password: hash
     })
     await user.save()
-    res.status(201).json({message:"user created successfully"})
+    res.status(200).json({message:"user created successfully"})
     }catch(err){
         res.status(500).json({error: err.message})
     }
 }
 const login =async(req,res)=>{
     try{
-    const {username,email,password}=req.body
+    const {email,password}=req.body
     const user=await User.findOne({email})
     if(!user){
         res.status(404).json({message:"user not found"})
     }
     const vaild=await argon2.verify(user.password,password)
     if(vaild){
-        const token=jwt.sign({id:user._id,name:user.username},key,{
+        const token=jwt.sign({name:user.username,email:user.email},key,{
             expiresIn:"1d"
         })
         return res.status(200).json({msg:"user login ",token:token})
