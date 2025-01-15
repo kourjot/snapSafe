@@ -1,0 +1,216 @@
+/* Global styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #a1c4fd, #c2e9fb); /* Light blue gradient */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  min-height: 100%;
+  position: relative;
+  padding: 20px; /* Added padding for better spacing */
+}
+
+/* Login container styling */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 100%; /* Ensure it scales properly */
+  height: 100%;
+  padding: 20px;
+}
+
+/* Login box styles */
+.login-box {
+  background: #fff;
+  padding: 40px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  width: 100%;
+  max-width: 450px;
+  text-align: center;
+  box-sizing: border-box;
+  margin-top: 20px; /* Space from top of the screen */
+}
+
+/* SnapSafe brand logo text */
+.brand-logo {
+  font-size: 50px;
+  font-weight: 700;
+  color: #9c27b0;
+  margin-bottom: 20px; /* Space between brand text and the form */
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Title styles */
+h2 {
+  color: #6c757d;
+  font-size: 24px;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+/* Textbox input field */
+.textbox {
+  margin-bottom: 20px;
+}
+
+.textbox input {
+  width: 100%;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  font-size: 16px;
+  background-color: #f7f7f7;
+  color: #555;
+  transition: border-color 0.3s ease;
+}
+
+.textbox input:focus {
+  border-color: #9c27b0;
+}
+
+/* Password container */
+.password-container {
+  position: relative;
+}
+
+.password-container i {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #9c27b0;
+  font-size: 18px;
+}
+
+/* Button styles */
+.btn {
+  width: 100%;
+  padding: 15px;
+  background-color: #9c27b0;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.btn:hover {
+  background-color: #7b1fa2;
+}
+
+/* Responsive styles */
+@media (max-width: 1024px) {
+  .login-box {
+    padding: 30px;
+    max-width: 90%; /* Ensures a maximum width relative to the screen size */
+  }
+
+  .brand-logo {
+    font-size: 45px;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+
+  .textbox input {
+    font-size: 15px;
+    padding: 12px;
+  }
+
+  .btn {
+    font-size: 15px;
+    padding: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .login-box {
+    padding: 25px;
+    max-width: 90%;
+  }
+
+  .brand-logo {
+    font-size: 40px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  .textbox input {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .btn {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-box {
+    padding: 20px;
+    max-width: 95%; /* Ensures it's smaller on tiny screens */
+  }
+
+  .brand-logo {
+    font-size: 35px;
+  }
+
+  h2 {
+    font-size: 18px;
+  }
+
+  .textbox input {
+    font-size: 13px;
+    padding: 8px;
+  }
+
+  .btn {
+    font-size: 13px;
+    padding: 8px;
+  }
+}
+
+/* Styles for extremely small screens (300px or less) */
+@media (max-width: 350px) {
+  .login-box {
+    padding: 15px;
+    max-width: 100%;
+  }
+
+  .brand-logo {
+    font-size: 30px; /* Further reduce the brand logo size */
+  }
+
+  h2 {
+    font-size: 14px; /* Small title */
+  }
+
+  .textbox input {
+    font-size: 12px;
+    padding: 6px;
+  }
+
+  .btn {
+    font-size: 12px;
+    padding: 6px;
+  }
+}
