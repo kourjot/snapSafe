@@ -3,6 +3,7 @@ import { v2 } from "cloudinary";
 import jwt from "jsonwebtoken";
 import "dotenv/config";
 import fs from "fs";
+import { send } from "process";
 v2.config({
   cloud_name: 'dauds0p8p',
   api_key: '215473884174485',
@@ -45,3 +46,20 @@ export const uploaded = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
+
+
+export const getMyData=async(req,res)=>{
+    const token=req.headers.authorization
+    try{
+        const data=jwt.verify(token,process.env.key)
+        const email=data.email
+        const sendData = await Data.findOne({ email })
+        if(!sendData){
+         return   res.status(404).json({message:"No file Uploaded yet"})
+        }
+        res.status(200).json({data:sendData.data})
+    }catch{
+        res.status(500).json({msg:"error in get my data",err:err.message})
+    }
+}
