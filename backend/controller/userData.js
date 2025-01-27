@@ -40,7 +40,7 @@ export const uploaded = async (req, res) => {
       await userExist.save();
     }
 
-    return res.status(200).json({ message: "File uploaded successfully" });
+    return res.status(200).json({ message: "File uploaded successfully" ,url:url.secure_url });
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: err.message });
