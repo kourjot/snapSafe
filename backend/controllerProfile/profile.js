@@ -21,7 +21,7 @@ V2.config({
     api_key: "215473884174485",
     api_secret: "XjUxO4DgjxUVS0dXPTVdABHkHjw",
   });
-
+  
 
 export const profile_photo = async (req, res) => {
     console.log("vijay");
