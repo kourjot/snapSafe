@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SnapSafe - Home</title>
+    <link rel="stylesheet" href="home.css">
+   
+</head>
+<body>
+    <header class="header">
+        <div class="brand-logo">SnapSafe</div>
+        <nav class="nav">
+            <ul>
+                <li>
+                    <button id="profileButton">My Profile</button>
+                    <div id="profileDropdown" class="profile-dropdown">
+                        <button id="viewProfile">View Profile</button>
+                        <button id="logoutButton">Logout</button>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="welcome-section">
+            <h1>Welcome, <span id="usernameDisplay">User</span>!</h1>
+            <p>Manage your photos securely with SnapSafe.</p>
+        </section>
+        <!-- Other content here -->
+    </main>
+
+    <main>
+        <!-- Upload Button -->
+        <section class="media-section">
+            <button class="upload-btn" id="uploadMediaButton">Upload Photo</button>
+            <div id="mediaGallery" class="gallery"></div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-left">
+                <ul>
+                    <li><a href="#support">Support</a></li>
+                    <li><a href="#brochure">Product Brochure</a></li>
+                    <li><a href="#warranty">Warranty Registration</a></li>
+                    <li><a href="#media">Media Center</a></li>
+                    <li><a href="#rapidsafes">RAPiD® Safes</a></li>
+                </ul>
+            </div>
+            <div class="footer-center">
+                <ul>
+                    <li><a href="#keypadvaults">Keypad Vaults</a></li>
+                    <li><a href="#modularsafes">Modular Safes</a></li>
+                    <li><a href="#lockboxes">Lock Boxes & Cabinets</a></li>
+                    <li><a href="#accessories">Security Accessories</a></li>
+                    <li><a href="#newproducts">New Products</a></li>
+                </ul>
+            </div>
+          
+        </div>
+    </footer>
+    
+    
+    
+
+    <script>
+        // Toggle profile dropdown
+        const profileButton = document.getElementById("profileButton");
+        const profileDropdown = document.getElementById("profileDropdown");
+        profileButton.addEventListener("click", () => {
+            profileDropdown.style.display =
+                profileDropdown.style.display === "block" ? "none" : "block";
+        });
+
+        // Logout functionality
+        const logoutButton = document.getElementById("logoutButton");
+        logoutButton.addEventListener("click", () => {
+            alert("You have been logged out.");
+            window.location.href = "login.html"; // Redirect to login
+        });
+
+        // Media upload functionality
+        const uploadMediaButton = document.getElementById("uploadMediaButton");
+        const mediaGallery = document.getElementById("mediaGallery");
+
+        uploadMediaButton.addEventListener("click", () => {
+            const input = document.createElement("input");
+            input.type = "file";
+            input.accept = "image/*,video/*";
+            input.onchange = (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const url = URL.createObjectURL(file);
+                    const mediaElement =
+                        file.type.startsWith("image/")
+                            ? document.createElement("img")
+                            : document.createElement("video");
+                    if (mediaElement.tagName === "VIDEO") mediaElement.controls = true;
+                    mediaElement.src = url;
+                    mediaGallery.appendChild(mediaElement);
+                    alert(`${file.type.startsWith("image/") ? "Photo" : "Video"} uploaded successfully!`);
+                }
+            };
+            input.click();
+        });
+    </script>
+</body>
+</html> 

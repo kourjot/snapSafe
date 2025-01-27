@@ -5,9 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Navbar with Image Upload</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        .hidden { display: none; }
-    </style>
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="nav.css">
 </head>
 <body class="bg-gray-100">
 
@@ -47,6 +46,29 @@
         </div>
     </div>
 
+    <footer>
+        <div class="footer-content">
+            <div class="footer-left">
+                <ul>
+                    <li><a href="#support">Support</a></li>
+                    <li><a href="#brochure">Product Brochure</a></li>
+                    <li><a href="#warranty">Warranty Registration</a></li>
+                    <li><a href="#media">Media Center</a></li>
+                    <li><a href="#rapidsafes">RAPiD® Safes</a></li>
+                </ul>
+            </div>
+            <div class="footer-center">
+                <ul>
+                    <li><a href="#keypadvaults">Keypad Vaults</a></li>
+                    <li><a href="#modularsafes">Modular Safes</a></li>
+                    <li><a href="#lockboxes">Lock Boxes & Cabinets</a></li>
+                    <li><a href="#accessories">Security Accessories</a></li>
+                    <li><a href="#newproducts">New Products</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
     <script>
         // Check if the user is logged in
         function checkAuth() {
@@ -79,8 +101,9 @@
                 const response = await fetch('http://localhost:3000/upload', {
                     method: 'POST',
                     headers: {
-                        'Authorization': `Bearer ${token}`, // Attach token to the header
-                    },
+                     'Authorization': token, // Send the token directly without the "Bearer" prefix
+                },
+
                     body: formData
                 });
 

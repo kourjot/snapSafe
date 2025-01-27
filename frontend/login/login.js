@@ -22,7 +22,7 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
     const password = document.getElementById("password").value;
     
     // API endpoint (replace this with your actual API endpoint)
-    const apiEndpoint = "http://localhost:2999/login";
+    const apiEndpoint = "https://snapsafevj.onrender.com/login";
     
     // Prepare request payload
     const requestPayload = {
