@@ -32,13 +32,14 @@ const login =async(req,res)=>{
     }
     const vaild=await argon2.verify(user.password,password)
     if(vaild){
-        const token=jwt.sign({name:user.username,email:user.email},key,{
+        const token=jwt.sign({name:user.username,email:user.email},"vijay@12",{
             expiresIn:"1 day"
         })
         return res.status(200).json({msg:"user login ",token:token})
     }
     res.status(200).json({message:"login success"})
     }catch(err){
+        console.log(err.message);
         res.status(500).json({error: err.message})
 
     }
