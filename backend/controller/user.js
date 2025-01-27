@@ -28,7 +28,7 @@ const login =async(req,res)=>{
     const {email,password}=req.body
     const user=await User.findOne({email})
     if(!user){
-        res.status(404).json({message:"user not found"})
+      return res.status(404).json({message:"user not found"})
     }
     const vaild=await argon2.verify(user.password,password)
     if(vaild){
