@@ -4,10 +4,13 @@ import { profilePhoto } from "../model/profilePhoto.js";
 import "dotenv/config"
 import jwt from "jsonwebtoken";
 import fs from "fs"
+import path from "path";
+import { fileURLToPath } from "url";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename,"uploads/"); 
 const storage=multer.diskStorage({
-    
     destination:function(req,file,cb){
-        cb(null,"uploads/")
+        cb(null,__dirname)
     },
     filename:function(req,file,cb){
         cb(null,Date.now()+file.originalname)
@@ -24,7 +27,7 @@ V2.config({
 
 
 export const profile_photo = async (req, res) => {
-    console.log("vijay");
+    // console.log("vijay");
     let token = req.headers["authorization"];
     if (!token) {
         return res.status(400).json({ message: "Token is required" });
