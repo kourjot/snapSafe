@@ -2,17 +2,16 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+
   }
   
   body {
     font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #a1c4fd, #c2e9fb); /* Light blue gradient */
+    background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    padding: 20px; /* Added padding for better spacing */
   }
   
   .login-container {
